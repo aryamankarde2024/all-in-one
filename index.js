@@ -1,6 +1,6 @@
 import express from "express";
 import mysql from "mysql";
-import { md5, randomString } from "./helper.js";
+import { md5, randomString, generateToken, authenticate } from "./helper.js";
 
 const app = express();
 
@@ -201,10 +201,13 @@ app.post("/login", (req, res) => {
                     },
                   });
                 } else {
+                  let token = generateToken(req.body.username);
+                  res.append("Authorization", `Bearer ${token}`);
+
                   res.send(`
-                                        <p>Successfully Logged In !</p>
-                                        <p>Hello ${results[0].fname}</p>
-                                    `);
+                    <p>Successfully Logged In !</p>
+                    <p>Hello ${results[0].fname}</p>
+                  `);
                 }
               }
             }
@@ -271,3 +274,13 @@ app.post("/forgot", (req, res) => {
 app.listen("8000", (err) => {
   console.log("Server listening on port 8000", err);
 });
+
+/*
+Way to make routes private
+
+app.use("/private", authenticate);
+
+app.get("/private", (req, res) => {
+  res.send("Hello you are logged in !");
+});
+*/

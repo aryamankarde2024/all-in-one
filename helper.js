@@ -1,18 +1,57 @@
-import { createHash, randomBytes } from 'node:crypto';
+import { createHash, randomBytes } from "node:crypto";
+import jwt from "jsonwebtoken";
 
-function md5(content) {  
-    return createHash('md5').update(content).digest('hex');
+const secret = "eSparkBiz";
+
+function md5(content) {
+  return createHash("md5").update(content).digest("hex");
 }
 
 function randomString(length) {
-    if (length % 2 !== 0) {
-      length++;
-    }
-  
-    return randomBytes(length / 2).toString("hex");
+  if (length % 2 !== 0) {
+    length++;
+  }
+
+  return randomBytes(length / 2).toString("hex");
 }
 
-export {
-    md5,
-    randomString
+function generateToken(username) {
+  return jwt.sign(
+    {
+      iss: "espark-biz.com",
+      iat: Date.now(),
+      exp: Date.now() + 1 * 60000,
+      message: username,
+    },
+    secret,
+    {
+      algorithm: "HS256",
+    }
+  );
 }
+
+function authenticate(req, res, next) {
+  try {
+    if (req?.headers?.authorization) {
+      const decoded = jwt.verify(
+        req?.headers?.authorization?.split("Bearer ")[1].trim(),
+        secret,
+        {
+          algorithms: "HS256",
+        }
+      );
+      if (Number(decoded.exp) <= Date.now()) {
+        res.redirect("/login");
+      } else {
+        next();
+      }
+    } else {
+      throw new Error("Unauthorized Request");
+    }
+  } catch (error) {
+    console.log(error);
+    res.redirect("/login");
+  }
+}
+
+export { md5, randomString, generateToken, authenticate };
