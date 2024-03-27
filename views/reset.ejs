@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <style>
+        form{
+            margin: 50px auto;
+            width: fit-content;
+        }
+
+        .error{
+            color: red;
+            font-family: sans-serif;
+            font-size: small;
+        }
+
+        label{
+            display: flex;
+            justify-content: space-between;
+            width: 300px;
+        }
+
+        .bottom{
+            text-align: center;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('header') %>
+    <form method="post">
+        <label for="password">
+            <span>Password</span>
+            <input
+                type="password"
+                name="password"
+                id="password"
+            >
+        </label>
+        <br>
+        <label for="confirmPassword">
+            <span>Confirm Password</span>
+            <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                title="Confirm Password must match with Password"
+            >
+        </label>
+        <br>
+        
+        <p class="error"><%= values.error ?? '' %></p>
+
+        <div class="bottom">
+            <input type="submit" value="Reset"/>
+        </div>
+    </form>
+</body>
+</html>
