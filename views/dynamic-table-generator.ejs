@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aryaman Karde 24DEV072</title>
+    <style>
+        td{
+            width: 40px;
+            height: 40px;
+        }
+        .buttons{
+            border: 1px solid black;
+            font-size: 40px;
+            height: 50px;
+            width: 50px;
+            text-align: center;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background-color: yellow;
+
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        table{
+            margin: 5px;
+            border-collapse: collapse;
+        }
+
+        tr:nth-of-type(even) td:nth-of-type(even), tr:nth-of-type(odd) td:nth-of-type(odd){
+            background-color: darkcyan;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Aryaman Karde 24DEV072</h1>
+    <div style="display: flex; flex-flow: row nowrap; justify-content: flex-end;">
+        <span class="buttons" onclick="increaseCol()">+</span>
+        <span class="buttons" onclick="decreaseCol()">-</span>
+    </div>
+    <table border="1">
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <div style="display: flex; flex-flow: column nowrap; position: fixed; bottom: 0;">
+        <span class="buttons" onclick="increaseRow()">+</span>
+        <span class="buttons" onclick="decreaseRow()">-</span>
+    </div>
+</body>
+<script type="text/javascript">
+    function increaseCol(){
+        document.querySelectorAll("tr").forEach((tr) => {
+            let td = document.createElement("td");
+            tr.appendChild(td);
+        });
+    }
+
+    function decreaseCol(){
+        if(document.querySelectorAll("tr")[0].childElementCount > 2){
+            document.querySelectorAll("tr").forEach((tr) => {
+            tr.removeChild(tr.lastChild);
+        });
+        }
+    }
+
+    function increaseRow(){
+        document.querySelector("table").appendChild(document.querySelector("tr").cloneNode(true));
+    }
+
+    function decreaseRow(){
+        if(document.querySelectorAll("tr").length > 2){
+            document.querySelector("table").removeChild(document.querySelector("table").lastChild);
+        }
+    }
+
+</script>
+</html>

@@ -1,62 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <style>
-        form{
-            margin: 50px auto;
-            width: fit-content;
-        }
+      form {
+        margin: 50px auto;
+        width: fit-content;
+      }
 
-        .error{
-            color: red;
-            font-family: sans-serif;
-            font-size: small;
-        }
+      .error {
+        color: red;
+        font-family: sans-serif;
+        font-size: small;
+      }
 
-        label{
-            display: flex;
-            justify-content: space-between;
-            width: 300px;
-        }
+      label {
+        display: flex;
+        justify-content: space-between;
+        width: 300px;
+      }
 
-        .bottom{
-            text-align: center;
-            width: 300px;
-        }
+      .bottom {
+        text-align: center;
+        width: 300px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <%- include('header') %>
     <form method="post">
-        <label for="username">
-            <span>Username</span>
-            <input
-                type="text"
-                name="username"
-                id="username"
-            >
-        </label>
-        <br>
-        <label for="password">
-            <span>Password</span>
-            <input
-                type="password"
-                name="password"
-                id="password"
-            >
-        </label>
-        <br>
+      <label for="username">
+        <span>Username</span>
+        <input type="text" name="username" id="username" />
+      </label>
+      <br />
+      <label for="password">
+        <span>Password</span>
+        <input type="password" name="password" id="password" />
+      </label>
+      <br />
 
-        <a href="/forgot">Forgot Password ?</a>
-        
-        <p class="error"><%= values.error ?? '' %></p>
+      <a href="/forgot">Forgot Password ?</a>
 
-        <div class="bottom">
-            <input type="submit" value="Login"/>
-        </div>
+      <p>New to system, register <a href="/forgot">here</a></p>
+
+      <p class="error"><%= values.error ?? '' %></p>
+
+      <div class="bottom">
+        <input type="submit" value="Login" />
+      </div>
     </form>
-</body>
+  </body>
 </html>

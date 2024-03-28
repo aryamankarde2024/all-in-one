@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <%- include('header') %>
+    <h4>List of tasks</h4>
+    <table cellpadding="20">
+      <tr>
+        <th>Sr No.</th>
+        <th>Name</th>
+        <th>Link</th>
+      </tr>
+
+      <% Object.entries(list).forEach(([name, link]) => { %>
+      <tr>
+        <td><%=counter++%></td>
+        <td><%=name%></td>
+        <td>
+          <a href="<%=link%>">Click here</a>
+        </td>
+      </tr>
+      <% }) %>
+    </table>
+  </body>
+</html>

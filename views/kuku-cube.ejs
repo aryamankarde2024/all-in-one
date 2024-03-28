@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Game</title>
+
+    <style>
+      #board {
+        background-color: crimson;
+        opacity: 0.8;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      table {
+        width: 400px;
+        height: 400px;
+        max-width: 400px;
+        max-height: 400px;
+        background-color: white;
+        border-radius: 20px;
+      }
+
+      td {
+        width: max-content;
+        height: max-content;
+        border-radius: 20%;
+      }
+
+      #timer {
+        position: fixed;
+        left: 49%;
+        z-index: 1;
+        top: 40px;
+        background-color: darkgray;
+        color: lightgrey;
+        border-radius: 20%;
+        padding: 5px;
+      }
+
+      #toggle {
+        position: fixed;
+        right: 20px;
+        z-index: 1;
+        top: 10px;
+        background-color: black;
+        color: lightgrey;
+        border-radius: 20%;
+        padding: 5px;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 style="position: fixed; left: 38%; z-index: 1">
+      Aryaman Karde 24DEV072
+    </h2>
+    <h2 id="timer">60</h2>
+    <div id="board">
+      <div style="position: fixed; left: 10px; top: 10px">
+        Score :
+        <span id="score">0</span>
+      </div>
+      <table cellspacing="10"></table>
+    </div>
+    <button id="toggle" onclick="start(this)" value="0">Start</button>
+  </body>
+  <script type="text/javascript">
+    let table = document.getElementsByTagName("table")[0];
+    let dimensions = 2,
+      score = 0;
+    let timerContext = null;
+
+    function generateTable() {
+      let shade = `rgb(${Math.random() * 254}, ${Math.random() * 254}, ${
+        Math.random() * 254
+      })`;
+
+      table.innerHTML = "";
+      for (let i = 0; i < dimensions; i++) {
+        let row = document.createElement("tr");
+        for (let j = 0; j < dimensions; j++) {
+          let col = document.createElement("td");
+          if (timerContext) col.addEventListener("click", evaluate);
+          col.style.backgroundColor = shade;
+          col.style.cursor = "pointer";
+          row.appendChild(col);
+        }
+        table.appendChild(row);
+      }
+
+      let cell = document.querySelectorAll("td");
+      let index = Math.floor(Math.random() * cell.length);
+      cell[index].style.opacity = 0.5;
+    }
+
+    function evaluate(e) {
+      if (e.target.style.opacity) {
+        score++;
+      } else {
+        score--;
+      }
+      dimensions++;
+      generateTable();
+      document.getElementById("score").innerText = score;
+    }
+
+    function start(ele) {
+      if (!+ele.value) {
+        document.querySelectorAll("td").forEach((td) => {
+          td.addEventListener("click", evaluate);
+        });
+
+        timerContext = setInterval(() => {
+          document.getElementById("timer").innerText =
+            +document.getElementById("timer").innerText - 1;
+          if (+document.getElementById("timer").innerText == 0) {
+            alert(`Timeout\n Score : ${score}`);
+            clearInterval(timerContext);
+            window.location.reload();
+          }
+        }, 1000);
+
+        ele.innerText = "Pause";
+        ele.value = "1";
+      } else {
+        document.querySelectorAll("td").forEach((td) => {
+          td.removeEventListener("click", evaluate);
+        });
+        clearInterval(timerContext);
+        ele.innerText = "Start";
+        ele.value = "0";
+      }
+    }
+
+    generateTable();
+  </script>
+</html>

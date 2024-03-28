@@ -1,6 +1,9 @@
 import express from "express";
 import mysql from "mysql";
+import cookieParser from "cookie-parser";
 import { md5, randomString, generateToken, authenticate } from "./helper.js";
+import r1 from "./routes/dynamic-table-generator.js";
+import r2 from "./routes/kuku-cube.js";
 
 const app = express();
 
@@ -15,6 +18,7 @@ const connection = mysql.createConnection({
 app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.get("/register", (req, res) => {
   res.render("registration", { values: {} });
@@ -178,7 +182,6 @@ app.post("/login", (req, res) => {
             },
           });
         } else if (results.length) {
-          console.log(results);
           const salt = results[0].salt;
           const password = md5(salt + req.body.password);
 
@@ -202,12 +205,8 @@ app.post("/login", (req, res) => {
                   });
                 } else {
                   let token = generateToken(req.body.username);
-                  res.append("Authorization", `Bearer ${token}`);
-
-                  res.send(`
-                    <p>Successfully Logged In !</p>
-                    <p>Hello ${results[0].fname}</p>
-                  `);
+                  res.cookie("Token", token);
+                  res.redirect("/");
                 }
               }
             }
@@ -271,16 +270,21 @@ app.post("/forgot", (req, res) => {
   }
 });
 
+app.use("/", authenticate);
+
+app.get("/", (req, res) => {
+  const list = {
+    "Dynamic Table Generator": "dyanamic-table-generator",
+    "Kuku Cube": "kuku-cube",
+  };
+
+  let counter = 1;
+  res.render("dashboard", { list, counter });
+});
+
+app.use("/dyanamic-table-generator", r1);
+app.use("/kuku-cube", r2);
+
 app.listen("8000", (err) => {
   console.log("Server listening on port 8000", err);
 });
-
-/*
-Way to make routes private
-
-app.use("/private", authenticate);
-
-app.get("/private", (req, res) => {
-  res.send("Hello you are logged in !");
-});
-*/

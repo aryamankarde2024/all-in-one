@@ -32,14 +32,10 @@ function generateToken(username) {
 
 function authenticate(req, res, next) {
   try {
-    if (req?.headers?.authorization) {
-      const decoded = jwt.verify(
-        req?.headers?.authorization?.split("Bearer ")[1].trim(),
-        secret,
-        {
-          algorithms: "HS256",
-        }
-      );
+    if (req?.cookies?.Token) {
+      const decoded = jwt.verify(req?.cookies?.Token, secret, {
+        algorithms: "HS256",
+      });
       if (Number(decoded.exp) <= Date.now()) {
         res.redirect("/login");
       } else {
