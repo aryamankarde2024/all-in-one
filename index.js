@@ -10,6 +10,7 @@ import r5 from "./routes/express-demo.js";
 import r6 from "./routes/pagination-demo.js";
 import r7 from "./routes/zero-task.js";
 import r8 from "./routes/search-functionality.js";
+import r9 from "./routes/delimited-search.js";
 
 const app = express();
 
@@ -292,6 +293,7 @@ app.get("/", (_, res) => {
     Result: "pagination-demo/result",
     "Zero(th) Task Optimized": "zero-task",
     "Search Functionality": "search-functionality",
+    "Delimited Search": "delimited-search",
   };
 
   let counter = 1;
@@ -306,6 +308,7 @@ app.use("/express-demo", r5);
 app.use("/pagination-demo", r6);
 app.use("/zero-task", r7);
 app.use("/search-functionality", r8);
+app.use("/delimited-search", r9);
 
 app.listen("8000", (err) => {
   console.log("Server listening on port 8000", err);

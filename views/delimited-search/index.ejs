@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delimited Search</title>
+</head>
+<body>
+    <h1>Delimited Search</h1>
+    <h2>Aryaman Karde (DEV072)</h2>
+
+    <form method="get">
+        <input type="text" name="search" id="search" value="<%=query%>" autofocus tabindex="1" />
+        <input type="submit" value="GO" tabindex="2">
+    </form>
+
+    <table border="1">
+        <tr>
+            <td>
+                Id
+            </td>
+            <td>
+                _
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Name
+            </td>
+            <td>
+                ^
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Phone
+            </td>
+            <td>
+                $
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                City
+            </td>
+            <td>
+                }
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Zipcode
+            </td>
+            <td>
+                {
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Blood Group
+            </td>
+            <td>
+                :
+            </td>
+        </tr>
+    </table>
+
+    <table border="1" cellpadding="10">
+        <thead>
+            <% fields.forEach((f) => {%>
+                    <th>
+                        <div>
+                            <%=f.name%>
+                        </div>
+                    </th>
+            <% }) %>
+        </thead>
+
+        <%results.forEach((r) => {%>
+            <tr>
+            <%for(let a of mapping){%>
+                <td>
+                    <%=r[a]%>
+                </td>
+            <%}%>
+            </tr>
+        <%})%>
+    </table>
+</body>
+</html>
