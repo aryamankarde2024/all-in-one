@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+</head>
+<body>
+    <fieldset>
+        <legend>
+            <h1>Student Registration Form</h1>
+        </legend>
+
+        <form method="post" name="register">
+            <table cellpadding="10" cellspacing="10">
+                <tr>
+                    <td>
+                        <label for="fname">First Name</label>
+                    </td>
+                    <td>
+                        <input type="text" name="fname" id="fname" required>
+                    </td>
+    
+                    <td>
+                        <label for="lname">Last Name</label>
+                    </td>
+                    <td>
+                        <input type="text" name="lname" id="lname" required>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <label for="age">Age</label>
+                    </td>
+                    <td>
+                        <input type="number" name="age" id="age" min="13" max="130" required>
+                    </td>
+    
+                    <td>
+                        <label for="phone">Phone Number</label>
+                    </td>
+                    <td>
+                        <input type="tel" name="phone" id="phone" required>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <label for="email">Email</label>
+                    </td>
+                    <td>
+                        <input type="email" name="email" id="email" required>
+                    </td>
+    
+                    <td>
+                        <label for="gender">Gender</label>
+                    </td>
+                    <td>
+                        <input type="radio" name="gender" value="Male" required> Male </input>
+                        <input type="radio" name="gender" value="Female"> Female </input>
+                        <input type="radio" name="gender" value="Others"> Others </input>
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td>
+                        <label for="hobbies">Hobbies</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="hobbies" value="Cricket">Cricket</input><br>
+                        <input type="checkbox" name="hobbies" value="Football">Football</input><br>
+                        <input type="checkbox" name="hobbies" value="Golf">Golf</input><br>
+                        <input type="checkbox" name="hobbies" value="Tennis">Tennis</input>
+                    </td>
+    
+                    <td>
+                        <label for="address">Address</label>
+                    </td>
+                    <td>
+                        <textarea name="address" id="address" cols="30" rows="10" required></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Register">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+</body>
+</html>

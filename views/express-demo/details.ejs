@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <link rel="stylesheet" href="../css/details-styles.css" type="text/css">
+</head>
+<body>
+    <h1>
+        <%= data.fname +" "+ data.lname%>
+    </h1>
+    <h6>
+        <%= data.age%>
+    </h6>
+    <h6>
+        <%= data.gender%>
+    </h6>
+    <ul>
+    <% data.hobbies.forEach((hobby) =>{%>
+        <li><%= hobby%></li>
+    <% }); %>
+    </ul>
+    <h6>
+        Contact Number :- <%= data.phone%>
+    </h6>
+    <div>
+        <h6>
+            Address :- <%= data.address%>
+        </h6>
+    </div>
+</body>
+</html>

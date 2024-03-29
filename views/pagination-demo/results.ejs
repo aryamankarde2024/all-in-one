@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Master</title>
+    <style>
+      table {
+        text-align: center;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Results Records</h1>
+    <h2>Aryaman Karde (DEV072)</h2>
+    <br />
+    <table border="1" cellpadding="5">
+      <tr>
+        <th rowspan="2">Student Name</th>
+        <th colspan="2">Prelim</th>
+        <th colspan="2">Terminal</th>
+        <th colspan="2">Final</th>
+        <th rowspan="2">Total (Out of 1200)</th>
+        <th rowspan="2">Result</th>
+      </tr>
+      <tr>
+        <td>Practical Total</td>
+        <td>Theory Total</td>
+        <td>Practical Total</td>
+        <td>Theory Total</td>
+        <td>Practical Total</td>
+        <td>Theory Total</td>
+      </tr>
+      <%results.forEach((r) => { %>
+      <tr>
+        <td><%=r.name %></td>
+        <td><%=r.total_prelim_practical_marks %></td>
+        <td><%=r.total_prelim_theory_marks %></td>
+        <td><%=r.total_terminal_practical_marks %></td>
+        <td><%=r.total_terminal_theory_marks %></td>
+        <td><%=r.total_final_practical_marks %></td>
+        <td><%=r.total_final_theory_marks %></td>
+        <td><%=r.total %></td>
+        <td>
+          <a href="reportCard/<%=r.id%>" target="_blank">View Report</a>
+        </td>
+      </tr>
+      <%}) %>
+    </table>
+    <p><%= `Total students are ${total}` %></p>
+    <div>
+      <a id="firstElement" <% if(firstPage) {%>
+        href="result?p=<%=firstPage%>"<%}%> > <<
+      </a>
+      <a id="prevElement" <% if(prevPage) {%>
+        href="result?p=<%=prevPage%>"<%}%> > <
+      </a>
+      <a id="theElement"><%= currentPage%></a>
+      <a id="nextElement" <% if(nextPage) {%>
+        href="result?p=<%=nextPage%>"<%}%> > >
+      </a>
+      <a id="lastElement" <% if(lastPage) {%>
+        href="result?p=<%=lastPage%>"<%}%> > >>
+      </a>
+    </div>
+  </body>
+</html>

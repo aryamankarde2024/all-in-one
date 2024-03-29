@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Master</title>
+</head>
+<body>
+    <h1>Student Records</h1>
+    <h2>Aryaman Karde (DEV072)</h2>
+    <table border="1" cellpadding="10">
+        <tr>
+            <% data.fields.forEach((f) => {
+                if(f.name in data.mapping){%>
+                    <th>
+                        <%=data.mapping[f.name]%>
+                    </th>
+            <% }}) %>
+        </tr>
+
+        <% data.results.forEach((r) => {%>
+            <tr>
+            <%for(let key in data.mapping){%>
+                <td>
+                    <% if(r[key] instanceof Date){ %> <%=r[key].toLocaleDateString()%> <% }else{ %> <%=r[key]%> <%}%>
+                </td>
+            <%}%>
+            </tr>
+        <%})%>
+    </table>
+</body>
+</html>

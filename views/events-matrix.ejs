@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matrix</title>
+  </head>
+  <body
+    style="color: grey"
+    onafterprint="onAfterPrint()"
+    onbeforeprint="onBeforePrint()"
+    onbeforeunload="return onBeforeUnload()"
+    onhashchange="onHashChange()"
+    onload="onLoad()"
+    ononline="onOnline()"
+    onoffline="onOffline()"
+    onpageshow="onPageShow()"
+    onunload="onUnload()"
+    onresize="onResize()"
+  >
+    <table border="1" cellspacing="5" cellpadding="5">
+      <tr>
+        <td>
+          onError <br />
+          <img src="./1.png" alt="Image" onerror="onError()" />
+        </td>
+
+        <td>
+          <a href="#12">onHashChange</a>
+        </td>
+
+        <td>
+          <input
+            type="text"
+            placeholder="On Blur Event Attached"
+            onblur="onBlur()"
+          />
+        </td>
+
+        <td>
+          <input
+            type="text"
+            oninput="onInput(this.value)"
+            value="On Input Event Attached"
+          />
+        </td>
+
+        <td>
+          <select name="demo" id="demo" onchange="onChange(this.value)">
+            <option value="Value1">Value 1</option>
+            <option value="Value2">Value 2</option>
+            <option value="Value3">Value 3</option>
+          </select>
+        </td>
+
+        <td>
+          <form>
+            <input
+              type="text"
+              placeholder="Dont leave me empty"
+              oninvalid="alert('You must fill out the form!');"
+              required
+            />
+            <input type="submit" value="Submit" />
+          </form>
+        </td>
+
+        <td>
+          <form>
+            <input
+              type="text"
+              value="Default Value"
+              onreset="alert('Look I fall back to where I started');"
+            />
+            <input type="reset" value="Reset" />
+          </form>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <input
+            type="search"
+            onsearch="onSearch(this.value)"
+            placeholder="Search something"
+          />
+        </td>
+
+        <td>
+          <input
+            type="text"
+            onselect="onSelect()"
+            value="Try Selecting **this** value."
+          />
+        </td>
+
+        <td>
+          <form onsubmit=" return onSubmit()">
+            <input type="submit" value="Submit this form" />
+          </form>
+        </td>
+
+        <td>
+          <input
+            type="text"
+            onkeydown="keydownFunction(this)"
+            onkeyup="keyupFunction(this)"
+            placeholder="onKeyDown & onKeyUp Event Listner Attached"
+          />
+        </td>
+
+        <td>
+          <input
+            type="text"
+            onkeyup="keypressFunction(this)"
+            placeholder="onKeyPress Event Listner Attached"
+          />
+        </td>
+
+        <td>
+          <button ondblclick="doubleClickFunction(this)">
+            Double Click Me
+          </button>
+        </td>
+
+        <td>
+          <span onmousedown="mouseDown(this)" onmouseup="mouseUp(this)">
+            This text has onmousedown and onmouseup event attached.
+          </span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Mouse Move and Mouse Out Events
+          <img
+            src="./2.png"
+            alt="Image"
+            onmousemove="mouseMove(this)"
+            onmouseout="mouseOut(this)"
+            width="50px"
+            height="50px"
+          />
+        </td>
+
+        <td>
+          <span onwheel="mouseWheel(this)">
+            Try Mouse Wheel Event on this !
+          </span>
+        </td>
+
+        <td>
+          <span oncopy="copy()"> Try copying this text ! </span>
+        </td>
+
+        <td>
+          <span oncut="cut()"> Try cuting this text ! </span>
+        </td>
+
+        <td>
+          <span onpaste="paste()" contenteditable="true">
+            Try pasting text here !
+          </span>
+        </td>
+
+        <td>
+          <span
+            draggable="true"
+            ondragstart="dragStart(this)"
+            ondragend="dragEnd(this)"
+          >
+            Try dragging me !
+            <img src="./2.png" alt="Image" width="100px" height="100px" />
+          </span>
+        </td>
+
+        <td>
+          <span ondrop="drop(this)" id="dropTarget"> Drop here </span>
+        </td>
+      </tr>
+    </table>
+  </body>
+  <script type="text/javascript">
+    function onAfterPrint() {
+      alert("After Print Event Trigged !!");
+    }
+
+    function onBeforePrint() {
+      alert("Before Print Event Trigged !!");
+    }
+
+    function onBeforeUnload() {
+      return true;
+    }
+
+    function onError() {
+      alert("Error loading image...");
+    }
+
+    function onHashChange() {
+      alert("onHashChange event trigged.");
+    }
+
+    function onLoad() {
+      alert("onload event trigged.");
+    }
+
+    function onOnline() {
+      alert("Hurray, you are back on-line !");
+    }
+
+    function onOffline() {
+      alert("Oh no, you are off-line !");
+    }
+
+    function onPageShow() {
+      alert("On Page Show Event Called !!");
+    }
+
+    function onUnload() {
+      alert(
+        "On unload event triggered ! (Notice it must be triggered after beforeunload event)"
+      );
+    }
+
+    function onResize() {
+      console.log("On Resized Event Triggered !!");
+    }
+
+    function onBlur() {
+      alert("On Blur Event Triggered !!");
+    }
+
+    function onInput(v) {
+      alert(`onInput Triggered !! New Value is "${v}"`);
+    }
+
+    function onChange(v) {
+      alert(`onChange Triggered !! New Value is "${v}"`);
+    }
+
+    function onSearch(v) {
+      alert(`You searched for ${v}`);
+    }
+
+    function onSelect() {
+      alert("On select called !");
+    }
+
+    function onSubmit() {
+      alert("You've submitted the form but we won't let it through.");
+      return false;
+    }
+
+    function keydownFunction(ele) {
+      ele.style.backgroundColor = "red";
+    }
+
+    function keyupFunction(ele) {
+      ele.style.backgroundColor = "yellow";
+    }
+
+    function keypressFunction(ele) {
+      ele.style.backgroundColor = "blue";
+    }
+
+    function doubleClickFunction(ele) {
+      if (ele.style.border == "" || ele.style.border != "5px solid red")
+        ele.style.border = "5px solid red";
+      else ele.style.border = "5px solid yellow";
+    }
+
+    function mouseDown(ele) {
+      ele.style.color = "Red";
+    }
+
+    function mouseUp(ele) {
+      ele.style.color = "black";
+    }
+
+    function mouseMove(ele) {
+      ele.style.width = "100px";
+      ele.style.height = "100px";
+    }
+
+    function mouseOut(ele) {
+      ele.style.width = "50px";
+      ele.style.height = "50px";
+    }
+
+    function mouseWheel(ele) {
+      ele.style.fontSize = `${Math.random() * 100}px`;
+    }
+
+    function copy() {
+      alert("Text copied to clipboard.");
+    }
+
+    function cut() {
+      alert("Text cut.");
+    }
+
+    function paste() {
+      alert("Text pasted successfully.");
+    }
+
+    let ele = null;
+
+    function drop(element) {
+      element.appendChild(ele);
+    }
+
+    document
+      .getElementById("dropTarget")
+      .addEventListener("dragover", dragOver, false);
+
+    function dragOver(e) {
+      console.log(e);
+      e.preventDefault();
+    }
+
+    function dragStart(e) {
+      ele = e.children[0];
+      alert("Drag Started");
+    }
+
+    function dragEnd() {
+      alert("Drag Ended");
+    }
+  </script>
+</html>

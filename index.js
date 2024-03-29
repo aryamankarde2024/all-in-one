@@ -4,6 +4,10 @@ import cookieParser from "cookie-parser";
 import { md5, randomString, generateToken, authenticate } from "./helper.js";
 import r1 from "./routes/dynamic-table-generator.js";
 import r2 from "./routes/kuku-cube.js";
+import r3 from "./routes/tic-tac-toe.js";
+import r4 from "./routes/events-matrix.js";
+import r5 from "./routes/express-demo.js";
+import r6 from "./routes/pagination-demo.js";
 
 const app = express();
 
@@ -272,10 +276,18 @@ app.post("/forgot", (req, res) => {
 
 app.use("/", authenticate);
 
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   const list = {
     "Dynamic Table Generator": "dyanamic-table-generator",
     "Kuku Cube": "kuku-cube",
+    "Tic Tac Toe": "tic-tac-toe",
+    "Events Matrix Board": "events-matrix",
+    "Express demo (Stores Data in a JSON file)": "express-demo",
+    "Basic grid": "pagination-demo/list",
+    "Basic pagination": "pagination-demo/pagination",
+    "Grid + Pagination": "pagination-demo",
+    Attendance: "pagination-demo/attendance",
+    Result: "pagination-demo/result",
   };
 
   let counter = 1;
@@ -284,7 +296,13 @@ app.get("/", (req, res) => {
 
 app.use("/dyanamic-table-generator", r1);
 app.use("/kuku-cube", r2);
+app.use("/tic-tac-toe", r3);
+app.use("/events-matrix", r4);
+app.use("/express-demo", r5);
+app.use("/pagination-demo", r6);
 
 app.listen("8000", (err) => {
   console.log("Server listening on port 8000", err);
 });
+
+export default connection;

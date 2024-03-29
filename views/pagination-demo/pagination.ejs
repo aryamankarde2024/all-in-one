@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pagination</title>
+    <style>
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Aryaman Karde (DEV072)</h2>
+    <p><%= `Total students are ${total}` %></p>
+    <div>
+      <a id="firstElement" <% if(firstPage) {%>
+        href="pagination?p=<%=firstPage%>"<%}%> > <<
+      </a>
+      <a id="prevElement" <% if(prevPage) {%>
+        href="pagination?p=<%=prevPage%>"<%}%> > <
+      </a>
+      <a id="theElement"><%= currentPage%></a>
+      <a id="nextElement" <% if(nextPage) {%>
+        href="pagination?p=<%=nextPage%>"<%}%> > >
+      </a>
+      <a id="lastElement" <% if(lastPage) {%>
+        href="pagination?p=<%=lastPage%>"<%}%> > >>
+      </a>
+    </div>
+  </body>
+</html>

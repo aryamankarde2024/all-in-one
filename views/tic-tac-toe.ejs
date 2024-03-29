@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <style>
+      td {
+        background-color: lightcyan;
+        border-radius: 10%;
+        width: 50px;
+        height: 50px;
+        border: 1px solid;
+      }
+      table {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <table cellspacing="10">
+      <tr>
+        <td id="0,0"></td>
+        <td id="0,1"></td>
+        <td id="0,2"></td>
+      </tr>
+      <tr>
+        <td id="1,0"></td>
+        <td id="1,1"></td>
+        <td id="1,2"></td>
+      </tr>
+      <tr>
+        <td id="2,0"></td>
+        <td id="2,1"></td>
+        <td id="2,2"></td>
+      </tr>
+    </table>
+  </body>
+  <script>
+    let lastAdded = "X";
+
+    document
+      .querySelectorAll("td")
+      .forEach((e) => e.addEventListener("click", marker));
+
+    function marker(e) {
+      lastAdded = e.target.innerText = lastAdded == "X" ? "O" : "X";
+      checkUpDown(e); // Up, Down, Up & Down
+      checkLeftRight(e); // Left, Right, Left & Right
+      checkDiagonal(e); // Left and Right Diagonal
+
+      e.target.removeEventListener("click", marker);
+
+      let tdList = Array.from(document.querySelectorAll("td"));
+      if (!tdList.filter((t) => t.innerText == "").length) {
+        alert("Match is drawn !");
+      }
+    }
+
+    function checkUpDown(e) {
+      let row = +e.target.id.split(",")[0];
+      let col = +e.target.id.split(",")[1];
+      let table = document.querySelector("tbody");
+
+      if (row == 2) {
+        if (
+          table.children[row - 1].children[col].innerText ==
+            table.children[row - 2].children[col].innerText &&
+          table.children[row - 2].children[col].innerText == e.target.innerText
+        ) {
+          success(e.target.innerText);
+        }
+      } else if (row == 0) {
+        if (
+          table.children[row + 1].children[col].innerText ==
+            table.children[row + 2].children[col].innerText &&
+          table.children[row + 2].children[col].innerText == e.target.innerText
+        ) {
+          success(e.target.innerText);
+        }
+      } else {
+        if (
+          table.children[row + 1].children[col].innerText ==
+            table.children[row - 1].children[col].innerText &&
+          table.children[row - 1].children[col].innerText == e.target.innerText
+        ) {
+          success(e.target.innerText);
+        }
+      }
+    }
+
+    function checkLeftRight(e) {
+      let row = +e.target.id.split(",")[0];
+      let col = +e.target.id.split(",")[1];
+      let table = document.querySelector("tbody");
+
+      if (col == 2) {
+        if (
+          table.children[row].children[col - 1].innerText ==
+            table.children[row].children[col - 2].innerText &&
+          table.children[row].children[col - 2].innerText == e.target.innerText
+        ) {
+          success(e.target.innerText);
+        }
+      } else if (col == 0) {
+        if (
+          table.children[row].children[col + 1].innerText ==
+            table.children[row].children[col + 2].innerText &&
+          table.children[row].children[col + 2].innerText == e.target.innerText
+        ) {
+          success(e.target.innerText);
+        }
+      } else {
+        if (
+          table.children[row].children[col + 1].innerText ==
+            table.children[row].children[col - 1].innerText &&
+          table.children[row].children[col - 1].innerText == e.target.innerText
+        ) {
+          success(e.target.innerText);
+        }
+      }
+    }
+
+    function checkDiagonal(e) {
+      let row = +e.target.id.split(",")[0];
+      let col = +e.target.id.split(",")[1];
+      let table = document.querySelector("tbody");
+
+      if (col == 0 && row == 0) {
+        if (
+          table.children[1].children[1].innerText ==
+            table.children[2].children[2].innerText &&
+          table.children[2].children[2].innerText == e.target.innerText
+        ) {
+          success(e.target.innerText);
+        }
+      } else if (col == 2 && row == 0) {
+        if (
+          table.children[1].children[1].innerText ==
+            table.children[2].children[0].innerText &&
+          table.children[2].children[0].innerText == e.target.innerText
+        ) {
+          success(e.target.innerText);
+        }
+      } else if (col == 0 && row == 2) {
+        if (
+          table.children[1].children[1].innerText ==
+            table.children[0].children[2].innerText &&
+          table.children[0].children[2].innerText == e.target.innerText
+        ) {
+          success(e.target.innerText);
+        }
+      } else if (col == 2 && row == 2) {
+        if (
+          table.children[1].children[1].innerText ==
+            table.children[0].children[0].innerText &&
+          table.children[0].children[0].innerText == e.target.innerText
+        ) {
+          success(e.target.innerText);
+        }
+      } else if (col == 1 && row == 1) {
+        if (
+          table.children[0].children[0].innerText ==
+            table.children[2].children[2].innerText &&
+          table.children[2].children[2].innerText == e.target.innerText
+        ) {
+          success(e.target.innerText);
+        } else if (
+          table.children[0].children[2].innerText ==
+            table.children[2].children[0].innerText &&
+          table.children[2].children[0].innerText == e.target.innerText
+        ) {
+          success(e.target.innerText);
+        }
+      }
+    }
+
+    function success(winner) {
+      alert(`${winner} won !`);
+    }
+  </script>
+</html>

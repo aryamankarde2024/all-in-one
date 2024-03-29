@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Card</title>
+    <style>
+        table{
+            text-align: center;
+            border-collapse: separate;
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Aryaman Karde (DEV072)</h2>
+    
+    <h1>
+        Report Card
+    </h1>
+
+    <table cellpadding="10" border="1">
+        <tr>
+            <th>
+                Name
+            </th>
+            <td colspan="5">
+                <%= data[0].student_name%>
+            </td>
+
+            <th>
+                GR No
+            </th>
+            <td>
+                <%= id%>
+            </td>
+        </tr>
+        
+        <tr>
+            <th rowspan="2">
+                Subject
+            </th>
+            <th colspan="2">
+                Prelim
+            </th>
+            <th colspan="2">
+                Terminal
+            </th>
+            <th colspan="2">
+                Final
+            </th>
+            <th rowspan="2">
+                Total
+            </th>
+        </tr>
+
+        <tr>
+            <th>
+                Practical
+            </th>
+            <th>
+                Theory
+            </th>
+            <th>
+                Practical
+            </th>
+            <th>
+                Theory
+            </th>
+            <th>
+                Practical
+            </th>
+            <th>
+                Theory
+            </th>
+        </tr>
+        <% let finalTotal = 0 %>
+        <% for(let index = 0; index < data.length - 3; index = index + 3) {
+            let prelim_prac_m = 0;
+            let prelim_theo_m = 0;
+            let terminal_prac_m = 0;
+            let terminal_theo_m = 0;
+            let final_prac_m = 0;
+            let final_theo_m = 0;
+            let total = 0;
+            let subjectName = data[index].subject_name;
+
+            final_prac_m = data[index].practical_marks;
+            final_theo_m = data[index].theory_marks;
+
+            prelim_prac_m = data[index + 1].practical_marks;
+            prelim_theo_m= data[index + 1].theory_marks;
+            
+            terminal_prac_m = data[index + 2].practical_marks;
+            terminal_theo_m = data[index + 2].theory_marks;
+
+            total = prelim_prac_m + prelim_theo_m + terminal_prac_m + terminal_theo_m + final_prac_m + final_theo_m;
+
+            finalTotal += total;
+        %>
+        <tr>
+            <td>
+                <%= subjectName%>
+            </td>
+            
+            <td>
+                <%= prelim_prac_m%>
+            </td>
+            <td>
+                <%= prelim_theo_m%>
+            </td>
+            
+            <td>
+                <%= terminal_prac_m%>
+            </td>
+            <td>
+                <%= terminal_theo_m%>
+            </td>
+            
+            <td>
+                <%= final_prac_m%>
+            </td>
+            <td>
+                <%= final_theo_m%>
+            </td>
+
+            <td>
+                <%= total%>
+            </td>
+        </tr>
+        <% } %>
+        <tr>
+            <td>
+                Percentage
+            </td>
+            <td colspan="7">
+                <%= Number((finalTotal / 1200) * 100).toPrecision(4)%> %
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                Attendance (%)
+            </td>
+            <td colspan="7">
+                <%= percentage || '0 %'%>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

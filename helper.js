@@ -20,7 +20,7 @@ function generateToken(username) {
     {
       iss: "espark-biz.com",
       iat: Date.now(),
-      exp: Date.now() + 1 * 60000,
+      exp: Date.now() + 40 * 60000,
       message: username,
     },
     secret,

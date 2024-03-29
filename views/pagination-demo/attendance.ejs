@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Master</title>
+    <style>
+        a{
+            text-decoration: none;
+        }
+
+        .asc{
+            rotate: -90deg;
+            display: inline-block;
+        }
+
+        .desc{
+            rotate: 90deg;
+            display: inline-block;
+        }
+
+        th > div{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-around;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .selected{
+            border: 1px solid red;
+            padding: 5px;
+        }
+
+        th{
+            a{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+
+                > span{
+                    display: flex;
+                    flex-flow: column;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Attendance Records</h1>
+    <h2>Aryaman Karde (DEV072)</h2>
+    <form method="get">
+        <select name="filter">
+            <option value="12,2023" <%if(month == 12 && year == 2023){%> <%="selected=true"%> <%}%>>Dec 2023</option>
+            <option value="1,2024" <%if(month == 1 && year == 2024){%> <%="selected=true"%> <%}%>>Jan 2024</option>
+            <option value="2,2024" <%if(month == 2 && year == 2024){%> <%="selected=true"%> <%}%>>Feb 2024</option>
+        </select>
+        <input type="submit" value="GO">
+    </form>
+    <br>
+    <table border="1" cellpadding="10">
+        <thead>
+            <% fields.forEach((f) => {
+                if(f.name in mapping){%>
+                    <th>
+                        <div>
+                            <a href="attendance?sort=<%=mapping[f.name]%>&value=<%=(sortValue == 'asc' ? 'desc' : 'asc')%><%= sortQueryString%>">
+                                <%=mapping[f.name]%>
+                                <span>
+                                    <span class="asc <% if(fieldName == f.name && sortValue == 'asc') {%><%="selected"%><%}%>">></span>
+                                    <span class="desc <% if(fieldName == f.name && sortValue == 'desc') {%><%="selected"%><%}%>">></span>
+                                </span>
+                            </a>
+                        </div>
+                    </th>
+            <% }}) %>
+        </thead>
+
+        <%results.forEach((r) => {%>
+            <tr>
+            <%for(let key in mapping){%>
+                <td>
+                    <%=r[key]%>
+                </td>
+            <%}%>
+            </tr>
+        <%})%>
+    </table>
+    <p>
+        <%= `Total students are ${total}` %>
+    </p>
+    <div>
+        <a id="firstElement" <% if(firstPage) {%> href="attendance?p=<%=firstPage%>&<%= queryString%>"<%}%> > << </a>
+        <a id="prevElement" <% if(prevPage) {%> href="attendance?p=<%=prevPage%>&<%= queryString%>"<%}%> > < </a>
+        <a id="theElement"><%= currentPage%></a>
+        <a id="nextElement" <% if(nextPage) {%> href="attendance?p=<%=nextPage%>&<%= queryString%>"<%}%> > > </a>
+        <a id="lastElement" <% if(lastPage) {%> href="attendance?p=<%=lastPage%>&<%= queryString%>"<%}%> > >> </a>
+    </div>
+</body>
+</html>
