@@ -1,0 +1,31 @@
+<div>
+  <style>
+    table {
+      width: fit-content;
+      margin: 30px auto;
+      border-collapse: collapse;
+    }
+  </style>
+
+  <table border="1" cellpadding="10">
+    <tr>
+      <% fields?.forEach((f) => {%>
+      <th><%=f.name%></th>
+      <%})%>
+    </tr>
+
+    <% results?.forEach((r) => {%>
+    <tr>
+      <% fields?.forEach((f) => {%>
+      <td>
+        <% if(r[f.name] instanceof Date){ %> <%=r[f.name].toLocaleDateString()%>
+        <% }else{ %> <%=r[f.name]%> <%}%>
+      </td>
+      <%})%>
+      <td>
+        <a href="candidate/<%=r.id%>">Details</a>
+      </td>
+    </tr>
+    <%})%>
+  </table>
+</div>

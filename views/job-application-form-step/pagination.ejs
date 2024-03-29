@@ -1,0 +1,32 @@
+<div>
+  <style>
+    a {
+      text-decoration: none;
+      font-weight: bolder;
+    }
+
+    a[href] {
+      color: darkgreen;
+    }
+
+    #theElement {
+      font-size: larger;
+    }
+  </style>
+  <p><%= `Total records are ${data?.total}` %></p>
+  <div>
+    <a id="firstElement" <% if(data?.firstPage) {%>
+      href="<%=data?.pathname%>?p=<%=data?.firstPage%>"<%}%> > <<
+    </a>
+    <a id="prevElement" <% if(data?.prevPage) {%>
+      href="<%=data?.pathname%>?p=<%=data?.prevPage%>"<%}%> > <
+    </a>
+    <a id="theElement"><%= data?.currentPage%></a>
+    <a id="nextElement" <% if(data?.nextPage) {%>
+      href="<%=data?.pathname%>?p=<%=data?.nextPage%>"<%}%> > >
+    </a>
+    <a id="lastElement" <% if(data?.lastPage) {%>
+      href="<%=data?.pathname%>?p=<%=data?.lastPage%>"<%}%> > >>
+    </a>
+  </div>
+</div>

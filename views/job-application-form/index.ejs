@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+    <style>
+        td{
+            div{
+                color: red;
+                font-size: small;
+                padding: 10px 0;
+            }
+        }
+
+        .on{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" name="job-application-form" onsubmit="return validateForm(event)">
+        <fieldset name="basic_details">
+            <legend>
+                Basic Details
+            </legend>
+
+            <table cellspacing="10">
+                <tr>
+                    <td>First Name</td>
+                    <td>
+                        <input type="text" name="fname" id="fname" class="required textOnly" <%=savedValues['fname'] ? `value = ${savedValues['fname']}` : ''%> />
+                    </td>
+                    <td>Last Name</td>
+                    <td>
+                        <input type="text" name="lname" id="lname" class="required textOnly" <%=savedValues['lname'] ? `value = ${savedValues['lname']}` : ''%> />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Designation</td>
+                    <td>
+                        <%-designation%>
+                    </td>
+                    <td>Address 1</td>
+                    <td>
+                        <textarea name="addr1" id="addr1" cols="30" rows="10" class="required"><%=savedValues['addr1'] ? `${savedValues['addr1']}` : ''%></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Email</td>
+                    <td>
+                        <input type="text" name="email" id="email" class="required email"
+                            <%=savedValues['email'] ? `value = ${savedValues['email']}` : ''%>
+                        />
+                    </td>
+                    <td>Address 2</td>
+                    <td>
+                        <textarea name="addr2" id="addr2" cols="30" rows="10"><%=savedValues['addr2'] ? `${savedValues['addr2']}` : ''%></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Phone Number</td>
+                    <td>
+                        <input type="text" name="phone" id="phone" class="required phone"
+                            <%=savedValues['phone'] ? `value = ${savedValues['phone']}` : ''%>
+                        />
+                    </td>
+                    <td>City</td>
+                    <td>
+                        <select name="city" id="city"></select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        <input type="radio" name="gender" id="gender" value="1" class="required"
+                            <%=savedValues['gender'] == 1 ? 'checked=true' : ''%>
+                        />
+                            Male
+                        </input>
+
+                        <input type="radio" name="gender" id="gender" value="0" class="required"
+                            <%=savedValues['gender'] == 0 ? 'checked=true' : ''%>
+                        />
+                            Female
+                        </input>
+                    </td>
+                    <td>Zip Code</td>
+                    <td>
+                        <input type="text" name="zip_code" id="zip_code" class="required zipcode"
+                            <%=savedValues['zip_code'] ? `value = ${savedValues['zip_code']}` : ''%>
+                        />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Relationship Status</td>
+                    <td>
+                        <%-relationship%>
+                    </td>
+                    <td>
+                        Date Of Birth
+                    </td>
+                    <td>
+                        <input type="text" name="dob" id="dob" class="required dob"
+                            <%=savedValues['dob'] ? `value = ${savedValues['dob'].toISOString().split('T')[0]}` : ''%>
+                        />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br>
+        <fieldset name="education_details">
+            <legend>
+                Education Detail
+            </legend>
+
+            <table cellspacing="10">
+                <tr>
+                    <td>SSC Result</td>
+                </tr>
+                <tr>
+                    <td>
+                        Name of Board
+                    </td>
+                    <td>
+                        <%-board%>
+                    </td>
+                    <td>
+                        Passing Year
+                    </td>
+                    <td>
+                        <input type="text" name="ssc_passing_year" id="ssc_passing_year" class="required year"
+                            <%=savedValues['ssc_passing_year'] ? `value = ${savedValues['ssc_passing_year']}` : ''%>
+                        />
+                    </td>
+                    <td>
+                        Percentage
+                    </td>
+                    <td>
+                        <input type="text" name="ssc_percentage" id="ssc_percentage" class="required percentage"
+                            <%=savedValues['ssc_percentage'] ? `value = ${savedValues['ssc_percentage']}` : ''%>
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="10">
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        HSC/Diploma Result
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Name of Board
+                    </td>
+                    <td>
+                        <%-board%>
+                    </td>
+                    <td>
+                        Passing Year
+                    </td>
+                    <td>
+                        <input type="year" name="hsc_passing_year" id="hsc_passing_year" class="required year"
+                            <%=savedValues['hsc_passing_year'] ? `value = ${savedValues['hsc_passing_year']}` : ''%>
+                        />
+                    </td>
+                    <td>
+                        Percentage
+                    </td>
+                    <td>
+                        <input type="year" name="hsc_percentage" id="hsc_percentage" class="required percentage"
+                            <%=savedValues['hsc_percentage'] ? `value = ${savedValues['hsc_percentage']}` : ''%>
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="10">
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bachelor Degree
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Course Name
+                    </td>
+                    <td>
+                        <%-course%>
+                    </td>
+                    <td>
+                        University
+                    </td>
+                    <td>
+                        <%-university%>
+                    </td>
+                    <td>
+                        Passing Year
+                    </td>
+                    <td>
+                        <input type="text" name="bachelor_passing_year" id="bachelor_passing_year" class="required year"
+                            <%=savedValues['bachelor_passing_year'] ? `value = ${savedValues['bachelor_passing_year']}` : ''%>
+                        />
+                    </td>
+                    <td>
+                        Percentage
+                    </td>
+                    <td>
+                        <input type="text" name="bachelor_percentage" id="bachelor_percentage" class="required percentage"
+                            <%=savedValues['bachelor_percentage'] ? `value = ${savedValues['bachelor_percentage']}` : ''%>
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="10">
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Master Degree
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Course Name
+                    </td>
+                    <td>
+                        <%-course%>
+                    </td>
+                    <td>
+                        University
+                    </td>
+                    <td>
+                        <%-university%>
+                    </td>
+                    <td>
+                        Passing Year
+                    </td>
+                    <td>
+                        <input type="text" name="masters_passing_year" id="masters_passing_year" class="year" />
+                    </td>
+                    <td>
+                        Percentage
+                    </td>
+                    <td>
+                        <input type="text" name="masters_percentage" id="masters_percentage" class="percentage" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br>
+        <fieldset name="work_experience">
+            <legend>Work Experience</legend>
+            <table cellspacing="10">
+                <tr>
+                    <td>
+                        Company Name
+                    </td>
+                    <td>
+                        <input type="text" name="company" id="company" class="textOnly"
+                            <%=savedValues['company']?.length ? `value = ${savedValues['company'][0].company_name}` : ''%>
+                        >
+                    </td>
+
+                    <td>
+                        Designation
+                    </td>
+                    <td>
+                        <%-designation%>
+                    </td>
+
+                    <td>
+                        From
+                    </td>
+                    <td>
+                        <input type="text" name="starting_date" id="starting_date" class="date"
+                            <%=savedValues['company']?.length ? `value = ${savedValues['company'][0].f.toISOString().split('T')[0]}` : ''%>
+                        >
+                    </td>
+
+                    <td>
+                        To
+                    </td>
+                    <td>
+                        <input type="text" name="ending_date" id="ending_date" class="date"
+                            <%=savedValues['company']?.length ? `value = ${savedValues['company'][0].t.toISOString().split('T')[0]}` : ''%>
+                        >
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Company Name
+                    </td>
+                    <td>
+                        <input type="text" name="company" id="company" class="textOnly"
+                            <%=savedValues['company']?.length > 1 ? `value = ${savedValues['company'][1].company_name}` : ''%>
+                        >
+                    </td>
+
+                    <td>
+                        Designation
+                    </td>
+                    <td>
+                        <%-designation%>
+                    </td>
+
+                    <td>
+                        From
+                    </td>
+                    <td>
+                        <input type="text" name="starting_date" id="starting_date" class="date"
+                            <%=savedValues['company']?.length > 1 ? `value = ${savedValues['company'][1].f.toISOString().split('T')[0]}` : ''%>
+                        >
+                    </td>
+
+                    <td>
+                        To
+                    </td>
+                    <td>
+                        <input type="text" name="ending_date" id="ending_date" class="date"
+                            <%=savedValues['company']?.length > 1 ? `value = ${savedValues['company'][1].t.toISOString().split('T')[0]}` : ''%>
+                        >
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Company Name
+                    </td>
+                    <td>
+                        <input type="text" name="company" id="company" class="textOnly"
+                            <%=savedValues['company']?.length > 2 ? `value = ${savedValues['company'][1].company_name}` : ''%>
+                        >
+                    </td>
+
+                    <td>
+                        Designation
+                    </td>
+                    <td>
+                        <%-designation%>
+                    </td>
+
+                    <td>
+                        From
+                    </td>
+                    <td>
+                        <input type="text" name="starting_date" id="starting_date" class="date"
+                            <%=savedValues['company']?.length > 2 ? `value = ${savedValues['company'][1].f.toISOString().split('T')[0]}` : ''%>
+                        />
+                    </td>
+
+                    <td>
+                        To
+                    </td>
+                    <td>
+                        <input type="text" name="ending_date" id="ending_date" class="date"
+                            <%=savedValues['company']?.length > 2 ? `value = ${savedValues['company'][1].t.toISOString().split('T')[0]}` : ''%>
+                        />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br>
+        <fieldset name="languages">
+            <legend>Languages Known</legend>
+
+            <table cellspacing="10">
+                <%-languages%>
+            </table>
+            
+        </fieldset>
+        <br>
+        <fieldset name="technologies">
+            <legend>
+                Technologies you know
+            </legend>
+
+            <table cellspacing="10">
+                <%-technologies%>
+            </table>
+        </fieldset>
+        <br>
+        <fieldset name="reference">
+            <legend>Reference Contact</legend>
+
+            <table cellspacing="10">
+                <tr>
+                    <td>Name</td>
+                    <td>
+                        <input type="text" name="reference_name" id="reference_name" class="textOnly"
+                            <%=savedValues['reference']?.length ? `value = ${savedValues['reference'][0].name}` : ''%>
+                        >
+                    </td>
+
+                    <td>Contact Number</td>
+                    <td>
+                        <input type="text" name="reference_contact" id="reference_contact" class="phone"
+                            <%=savedValues['reference']?.length ? `value = ${savedValues['reference'][0].phone}` : ''%>
+                        >
+                    </td>
+
+                    <td>Relation</td>
+                    <td><%-relation%></td>
+                </tr>
+
+                <tr>
+                    <td>Name</td>
+                    <td>
+                        <input type="text" name="reference_name" id="reference_name" class="textOnly"
+                            <%=savedValues['reference']?.length > 1? `value = ${savedValues['reference'][1].name}` : ''%>
+                        >
+                    </td>
+
+                    <td>Contact Number</td>
+                    <td>
+                        <input type="text" name="reference_contact" id="reference_contact" class="phone"
+                            <%=savedValues['reference']?.length > 1? `value = ${savedValues['reference'][1].phone}` : ''%>
+                        >
+                    </td>
+
+                    <td>Relation</td>
+                    <td><%-relation%></td>
+                </tr>
+            </table>
+        </fieldset>
+        <br>
+        <fieldset name="preferences">
+            <legend>Preference</legend>
+
+            <table cellspacing="10">
+                <tr>
+                    <td>Prefered Location</td>
+                    <td>
+                        <%-location%>
+                    </td>
+
+                    <td>Notice Period</td>
+                    <td>
+                        <input type="text" name="noticePeriod" id="noticePeriod" class="notice"
+                            <%=savedValues['noticePeriod'] ? `value = ${savedValues['noticePeriod']}` : ''%>
+                        />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Department</td>
+                    <td>
+                        <%-department%>
+                    </td>
+
+                    <td>Current CTC</td>
+                    <td>
+                        <input type="number" name="current_ctc" id="current_ctc" class="required" class="ctc"
+                            <%=savedValues['current_ctc'] ? `value = ${savedValues['current_ctc']}` : ''%>
+                        />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Expected CTC</td>
+                    <td>
+                        <input type="number" name="expected_ctc" id="expected_ctc" class="required" class="ctc"
+                            <%=savedValues['expected_ctc'] ? `value = ${savedValues['expected_ctc']}` : ''%>
+                        />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <br>
+        <center>
+            <input type="submit" value="Apply" />
+        </center>
+    </form>
+</body>
+<script>
+    function validateForm(formEvent){
+        let shouldSubmit = true;
+        try {
+            const elements = [...formEvent.srcElement.elements];
+            const reqElementsMap = new Map();
+            
+            elements.forEach(e => {
+                if(e.classList.contains('required')){
+                    reqElementsMap.set(e.name, e);
+                }
+            });
+
+            const valuesObj = Object.fromEntries(new FormData(formEvent.target).entries());
+
+            for(let [key, value] of reqElementsMap){
+                if(!valuesObj[key]){
+                    if(!value.classList.contains('required-on')){
+                        let a = document.createElement('div');
+                        a.textContent = 'Please fill up this field.';
+                        value.parentElement.appendChild(a);
+                        value.classList.add('required-on');
+                    }
+                    shouldSubmit = false;
+                }else if(value.classList.contains('required-on')){
+                    value.classList.remove('required-on');
+                    value.parentElement.removeChild(value.parentElement.lastChild);
+                }
+            }
+
+            elements.forEach(e => {
+                if(e.tagName.toLowerCase() === 'input'){
+                    if(e.classList.contains('textOnly')){
+                        if(e.classList.contains('on')){
+                            e.classList.remove('on');
+                            e.parentElement.removeChild(e.parentElement.lastChild);
+                        }
+                        if(!(/^[a-zA-Z\s]*$/.test(e.value)) && e.value != ''){
+                            let a = document.createElement('div');
+                            a.textContent = 'Only alphabets are allowed !';
+                            e.parentElement.appendChild(a);
+                            e.classList.add('on');
+                            shouldSubmit = false;
+                        }
+                    }
+                    if(e.classList.contains('email')){
+                        if(e.classList.contains('on')){
+                            e.classList.remove('on');
+                            e.parentElement.removeChild(e.parentElement.lastChild);
+                        }
+                        if(!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(e.value)) && e.value != ''){
+                            let a = document.createElement('div');
+                            a.textContent = 'Enter appropriate email address !';
+                            e.parentElement.appendChild(a);
+                            e.classList.add('on');
+                            shouldSubmit = false;
+                        }
+                    }
+                    if(e.classList.contains('phone')){
+                        if(e.classList.contains('on')){
+                            e.classList.remove('on');
+                            e.parentElement.removeChild(e.parentElement.lastChild);
+                        }
+                        if(!(/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/.test(e.value)) && e.value != ''){
+                            let a = document.createElement('div');
+                            a.textContent = 'Enter appropriate phone number !';
+                            e.parentElement.appendChild(a);
+                            e.classList.add('on');
+                            shouldSubmit = false;
+                        }
+                    }
+                    if(e.classList.contains('zipcode')){
+                        if(e.classList.contains('on')){
+                            e.classList.remove('on');
+                            e.parentElement.removeChild(e.parentElement.lastChild);
+                        }
+                        if(!(/^\d{6}$/.test(e.value)) && e.value != ''){
+                            let a = document.createElement('div');
+                            a.textContent = 'Enter appropriate zip code !';
+                            e.parentElement.appendChild(a);
+                            e.classList.add('on');
+                            shouldSubmit = false;
+                        }
+                    }
+                    if(e.classList.contains('dob')){
+                        if(e.classList.contains('on')){
+                            e.classList.remove('on');
+                            e.parentElement.removeChild(e.parentElement.lastChild);
+                        }
+                        if(!(/^(19[0-9]{2}|2[0-9]{3})-(0[1-9]|1[012])-([123]0|[012][1-9]|31)$/.test(e.value)) && e.value != ''){
+                            let a = document.createElement('div');
+                            a.textContent = 'Enter appropriate date in the format YYYY-MM-DD !';
+                            e.parentElement.appendChild(a);
+                            e.classList.add('on');
+                            shouldSubmit = false;
+                        }
+                    }
+                    if(e.classList.contains('year')){
+                        if(e.classList.contains('on')){
+                            e.classList.remove('on');
+                            e.parentElement.removeChild(e.parentElement.lastChild);
+                        }
+                        if(!(/^(19[0-9]{2}|2[0-9]{3})$/.test(e.value)) && e.value != ''){
+                            let a = document.createElement('div');
+                            a.textContent = 'Enter appropriate year in the format YYYY !';
+                            e.parentElement.appendChild(a);
+                            e.classList.add('on');
+                            shouldSubmit = false;
+                        }
+                    }
+                    if(e.classList.contains('percentage')){
+                        if(e.classList.contains('on')){
+                            e.classList.remove('on');
+                            e.parentElement.removeChild(e.parentElement.lastChild);
+                        }
+                        if(!(/^(([0-9]?[0-9]{1})|100)$/.test(e.value)) && e.value != ''){
+                            let a = document.createElement('div');
+                            a.textContent = 'Enter appropriate percentage in the format (1-100) !';
+                            e.parentElement.appendChild(a);
+                            e.classList.add('on');
+                            shouldSubmit = false;
+                        }
+                    }
+                    if(e.classList.contains('date')){
+                        if(e.classList.contains('on')){
+                            e.classList.remove('on');
+                            e.parentElement.removeChild(e.parentElement.lastChild);
+                        }
+                        if(!(/^(19[0-9]{2}|2[0-9]{3})-(0[1-9]|1[012])-([123]0|[012][1-9]|31)$/.test(e.value)) && e.value != ''){
+                            let a = document.createElement('div');
+                            a.textContent = 'Enter appropriate date in the format YYYY-MM-DD !';
+                            e.parentElement.appendChild(a);
+                            e.classList.add('on');
+                            shouldSubmit = false;
+                        }
+                    }
+                    if(e.classList.contains('ctc')){
+                        if(e.classList.contains('on')){
+                            e.classList.remove('on');
+                            e.parentElement.removeChild(e.parentElement.lastChild);
+                        }
+                        if(!(/^\d$/.test(e.value)) && e.value != ''){
+                            let a = document.createElement('div');
+                            a.textContent = 'Enter CTC only in figures !';
+                            e.parentElement.appendChild(a);
+                            e.classList.add('on');
+                            shouldSubmit = false;
+                        }
+                    }
+                    if(e.classList.contains('notice')){
+                        if(e.classList.contains('on')){
+                            e.classList.remove('on');
+                            e.parentElement.removeChild(e.parentElement.lastChild);
+                        }
+                        if(!(/^([0-8]?[0-9]{1}|90)$/.test(e.value)) && e.value != ''){
+                            console.log(e.value);
+                            let a = document.createElement('div');
+                            a.textContent = 'Notice must be within 90 days !';
+                            e.parentElement.appendChild(a);
+                            e.classList.add('on');
+                            shouldSubmit = false;
+                        }
+                    }
+                }
+            });
+
+        } catch (error) {
+            console.log(error);
+        } finally{
+            return shouldSubmit;
+        }
+    }
+</script>
+</html>

@@ -11,6 +11,8 @@ import r6 from "./routes/pagination-demo.js";
 import r7 from "./routes/zero-task.js";
 import r8 from "./routes/search-functionality.js";
 import r9 from "./routes/delimited-search.js";
+import r10 from "./routes/job-application-form.js";
+import r11 from "./routes/job-application-form-step.js";
 
 const app = express();
 
@@ -294,6 +296,8 @@ app.get("/", (_, res) => {
     "Zero(th) Task Optimized": "zero-task",
     "Search Functionality": "search-functionality",
     "Delimited Search": "delimited-search",
+    "Job Application Form": "job-application-form",
+    "Job Application Form Step": "job-application-form-step",
   };
 
   let counter = 1;
@@ -309,6 +313,8 @@ app.use("/pagination-demo", r6);
 app.use("/zero-task", r7);
 app.use("/search-functionality", r8);
 app.use("/delimited-search", r9);
+app.use("/job-application-form", r10);
+app.use("/job-application-form-step", r11);
 
 app.listen("8000", (err) => {
   console.log("Server listening on port 8000", err);
