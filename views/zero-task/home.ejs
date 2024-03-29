@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero(th) Task Optimized</title>
+
+    <style>
+        body{
+            text-align: center;
+        }
+
+        form{
+            width: fit-content;
+            margin: 40px auto;
+        }
+
+        p{
+            width: 70%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h2>Aryaman Karde (DEV072)</h2>
+    <form method="get">
+        <input type="text" name="q">
+        <input type="submit" value="GO">
+    </form>
+
+    <p>
+        <%=data?.query %>
+    </p>
+
+    <%- include('grid', data.grid); %>
+
+    <%- include('pagination', {data: data.pagination}); %>
+</body>
+</html>

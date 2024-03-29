@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Master</title>
+    <style>
+        a{
+            text-decoration: none;
+        }
+
+        .asc{
+            rotate: -90deg;
+            display: inline-block;
+        }
+
+        .desc{
+            rotate: 90deg;
+            display: inline-block;
+        }
+
+        th > div{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-around;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .selected{
+            border: 1px solid red;
+            padding: 5px;
+        }
+
+        th{
+            a{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+
+                > span{
+                    display: flex;
+                    flex-flow: column;
+                }
+            }
+        }
+
+        form{
+            display: none;
+        }
+        
+        .visible{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Attendance Records Along With Search</h1>
+    <h2>Aryaman Karde (DEV072)</h2>
+
+    <form method="get" class="<%if(form1){%>visible<%}%>">
+        <input type="text" placeholder="GR Number" name="GRNo" autofocus tabindex="1" value="<%=student_id ?? ''%>">
+        <input type="submit" value="GO" tabindex="2">
+    </form>
+
+    <form method="get" class="<%if(form2){%>visible<%}%>">
+        <input type="text" placeholder="Student Name" name="name" tabindex="4" value="<%=name ?? ''%>">
+        <input type="text" placeholder="Attendance" name="percentage" tabindex="5" value="<%=percentage ?? ''%>">
+        <label for="and">
+            <input type="radio" name="operation" id="and" value="and" <%= operation == 'AND' ? 'checked' : ''%> /> AND
+        </label>
+        <label for="or">
+            <input type="radio" name="operation" id="or" value="or" <%= operation != 'AND' ? 'checked' : ''%> /> OR
+        </label>
+        <input type="submit" value="GO">
+    </form>
+    
+    <span tabindex="3" onkeydown="toggle(event)">Show <%= form1 ? 'more' : 'less'%> ...</span>
+    
+    <br>
+    <br>
+    <table border="1" cellpadding="10">
+        <thead>
+            <% fields.forEach((f) => {
+                if(f.name in mapping){%>
+                    <th>
+                        <div>
+                            <%=mapping[f.name]%>
+                        </div>
+                    </th>
+            <% }}) %>
+        </thead>
+
+        <%results.forEach((r) => {%>
+            <tr>
+            <%for(let key in mapping){%>
+                <td>
+                    <%=r[key]%>
+                </td>
+            <%}%>
+            </tr>
+        <%})%>
+    </table>
+</body>
+<script>
+    function toggle(e){
+        if (e.keyCode === 32) {
+            e.preventDefault();
+            document.querySelectorAll('form').forEach(a => a.classList.toggle('visible'))
+        }
+    }
+</script>
+</html>

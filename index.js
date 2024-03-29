@@ -8,6 +8,8 @@ import r3 from "./routes/tic-tac-toe.js";
 import r4 from "./routes/events-matrix.js";
 import r5 from "./routes/express-demo.js";
 import r6 from "./routes/pagination-demo.js";
+import r7 from "./routes/zero-task.js";
+import r8 from "./routes/search-functionality.js";
 
 const app = express();
 
@@ -288,6 +290,8 @@ app.get("/", (_, res) => {
     "Grid + Pagination": "pagination-demo",
     Attendance: "pagination-demo/attendance",
     Result: "pagination-demo/result",
+    "Zero(th) Task Optimized": "zero-task",
+    "Search Functionality": "search-functionality",
   };
 
   let counter = 1;
@@ -300,6 +304,8 @@ app.use("/tic-tac-toe", r3);
 app.use("/events-matrix", r4);
 app.use("/express-demo", r5);
 app.use("/pagination-demo", r6);
+app.use("/zero-task", r7);
+app.use("/search-functionality", r8);
 
 app.listen("8000", (err) => {
   console.log("Server listening on port 8000", err);
