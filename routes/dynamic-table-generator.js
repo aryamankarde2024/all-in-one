@@ -1,9 +1,8 @@
 import express from "express";
+import controller from "../controllers/dynamic-table-generator-controller.js";
 
 const router = express.Router();
 
-router.get("/", (_, res) => {
-  res.render("dynamic-table-generator");
-});
+router.get("/", controller);
 
 export default router;

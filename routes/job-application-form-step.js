@@ -1,5 +1,25 @@
 import express from "express";
-import connection from "../index.js";
+import {
+  getCandidateDetails,
+  getCities,
+  getComboDetails,
+  getStates,
+  home,
+  list,
+  postCandidate,
+  postExperience,
+  postLanguage,
+  postMaster,
+  postReference,
+  postTechnologies,
+  putCandidate,
+  putEducation,
+  putExperience,
+  putLanguage,
+  putMaster,
+  putReference,
+  putTechnologies,
+} from "../controllers/job-application-form-step.js";
 
 const router = express.Router();
 
@@ -255,591 +275,42 @@ const validation = {
   },
 };
 
-router.post("/candidate", (req, res) => {
-  try {
-    if (checkValidation(req.body, validation.basicDetails, res)) {
-      let sqlQuery = generateInsertQuery(req.body, "candidate");
+router.post("/candidate", postCandidate);
 
-      new Promise((resolve, reject) => {
-        connection.query(sqlQuery, (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        });
-      })
-        .then((data) => res.json({ status: "success", message: data.insertId }))
-        .catch((err) => res.json({ status: "error", message: err.message }));
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
+router.put("/candidate", putCandidate);
 
-router.put("/candidate", (req, res) => {
-  try {
-    if (checkValidation(req.body, validation.basicDetails, res)) {
-      let sqlQuery = generateUpdateQuery(req.body, ["id"], "candidate");
+router.put("/education", putEducation);
 
-      new Promise((resolve, reject) => {
-        connection.query(sqlQuery, (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        });
-      })
-        .then((data) => res.json({ status: "success", message: data.insertId }))
-        .catch((err) => res.json({ status: "error", message: err.message }));
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
+router.post("/master", postMaster);
 
-router.put("/education", (req, res) => {
-  try {
-    if (
-      checkValidation(req.body, validation.education?.[req.body.detail], res)
-    ) {
-      body = Object.fromEntries(
-        Object.entries(req.body).filter((arr) => arr[0] != "detail")
-      );
+router.put("/master", putMaster);
 
-      let sqlQuery = generateUpdateQuery(body, ["id"], "candidate");
+router.post("/experience", postExperience);
 
-      new Promise((resolve, reject) => {
-        connection.query(sqlQuery, (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        });
-      })
-        .then((data) => res.json({ status: "success", message: data.insertId }))
-        .catch((err) => res.json({ status: "error", message: err.message }));
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
+router.put("/experience", putExperience);
 
-router.post("/master", (req, res) => {
-  try {
-    if (checkValidation(req.body, validation.master, res)) {
-      let sqlQuery = generateInsertQuery(req.body, "education");
+router.post("/language", postLanguage);
 
-      new Promise((resolve, reject) => {
-        connection.query(sqlQuery, (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        });
-      })
-        .then((data) => res.json({ status: "success", message: data.insertId }))
-        .catch((err) => res.json({ status: "error", message: err.message }));
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
+router.put("/language", putLanguage);
 
-router.put("/master", (req, res) => {
-  try {
-    if (checkValidation(req.body, validation.master, res)) {
-      let sqlQuery = generateUpdateQuery(req.body, ["eid"], "education");
+router.post("/technologies", postTechnologies);
 
-      new Promise((resolve, reject) => {
-        connection.query(sqlQuery, (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        });
-      })
-        .then((data) => res.json({ status: "success", message: data.insertId }))
-        .catch((err) => res.json({ status: "error", message: err.message }));
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
+router.put("/technologies", putTechnologies);
 
-router.post("/experience", (req, res) => {
-  try {
-    if (checkValidation(req.body, validation.experience, res)) {
-      let sqlQuery = generateInsertQuery(req.body, "experience");
+router.post("/reference", postReference);
 
-      new Promise((resolve, reject) => {
-        connection.query(sqlQuery, (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        });
-      })
-        .then((data) => res.json({ status: "success", message: data.insertId }))
-        .catch((err) => res.json({ status: "error", message: err.message }));
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
+router.put("/preference", putReference);
 
-router.put("/experience", (req, res) => {
-  try {
-    if (checkValidation(req.body, validation.experience, res)) {
-      let sqlQuery = generateUpdateQuery(req.body, ["id", "eid"], "experience");
+router.get("/combo/:name", getComboDetails);
 
-      new Promise((resolve, reject) => {
-        connection.query(sqlQuery, (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        });
-      })
-        .then((data) => res.json({ status: "success", message: data.insertId }))
-        .catch((err) => res.json({ status: "error", message: err.message }));
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
+router.get("/states", getStates);
 
-router.post("/language", (req, res) => {
-  try {
-    if (checkValidation(req.body, validation.language, res)) {
-      if (req.body.speak || req.body.write || req.body.read) {
-        let sqlQuery = generateInsertQuery(req.body, "language");
+router.get("/cities", getCities);
 
-        new Promise((resolve, reject) => {
-          connection.query(sqlQuery, (err, results) => {
-            if (err) reject(err);
-            resolve(results);
-          });
-        })
-          .then((data) =>
-            res.json({ status: "success", message: data.insertId })
-          )
-          .catch((err) => res.json({ status: "error", message: err.message }));
-      } else {
-        res.json({
-          status: "error",
-          message: "Either read, write or speak values must be present.",
-        });
-      }
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
+router.get("/list", list);
 
-router.put("/language", (req, res) => {
-  try {
-    if (checkValidation(req.body, validation.language, res)) {
-      if (req.body.speak || req.body.write || req.body.read) {
-        let sqlQuery = generateUpdateQuery(
-          req.body,
-          ["eid", "option_id"],
-          "language"
-        );
+router.get("/", home);
 
-        new Promise((resolve, reject) => {
-          connection.query(sqlQuery, (err, results) => {
-            if (err) reject(err);
-            resolve(results);
-          });
-        })
-          .then((data) =>
-            res.json({ status: "success", message: data.insertId })
-          )
-          .catch((err) => res.json({ status: "error", message: err.message }));
-      } else {
-        res.json({
-          status: "error",
-          message: "Either read, write or speak values must be present.",
-        });
-      }
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
-
-router.post("/technologies", (req, res) => {
-  try {
-    if (checkValidation(req.body, validation.technologies, res)) {
-      let sqlQuery = generateInsertQuery(req.body, "technologies");
-
-      new Promise((resolve, reject) => {
-        connection.query(sqlQuery, (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        });
-      })
-        .then((data) => res.json({ status: "success", message: data.insertId }))
-        .catch((err) => res.json({ status: "error", message: err.message }));
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
-
-router.put("/technologies", (req, res) => {
-  try {
-    if (checkValidation(req.body, validation.technologies, res)) {
-      let sqlQuery = generateUpdateQuery(
-        req.body,
-        ["eid", "option_id"],
-        "technologies"
-      );
-
-      new Promise((resolve, reject) => {
-        connection.query(sqlQuery, (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        });
-      })
-        .then((data) => res.json({ status: "success", message: data.insertId }))
-        .catch((err) => res.json({ status: "error", message: err.message }));
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
-
-router.post("/reference", (req, res) => {
-  try {
-    if (checkValidation(req.body, validation.reference, res)) {
-      let sqlQuery = generateInsertQuery(req.body, "reference");
-
-      new Promise((resolve, reject) => {
-        connection.query(sqlQuery, (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        });
-      })
-        .then((data) => res.json({ status: "success", message: data.insertId }))
-        .catch((err) => res.json({ status: "error", message: err.message }));
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
-
-router.put("/preference", (req, res) => {
-  try {
-    if (checkValidation(req.body, validation.preference, res)) {
-      let sqlQuery = generateUpdateQuery(req.body, ["id"], "candidate");
-
-      new Promise((resolve, reject) => {
-        connection.query(sqlQuery, (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        });
-      })
-        .then((data) => res.json({ status: "success", message: data.insertId }))
-        .catch((err) => res.json({ status: "error", message: err.message }));
-    }
-    return;
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
-
-router.get("/combo/:name", (req, res) => {
-  try {
-    let sqlQuery = `
-            SELECT
-                s.id, s.name, s.control_type, s.css, s.allow_multiple, o.id as opt_id, value
-            FROM
-                select_master AS s
-                    INNER JOIN
-                option_master AS o ON s.id = o.sid
-            WHERE
-                s.name LIKE '${req.params.name}'
-        `;
-
-    new Promise((resolve, reject) => {
-      connection.query(sqlQuery, (err, results) => {
-        if (err) reject(err);
-        resolve(results);
-      });
-    })
-      .then((data) => res.json({ status: "success", message: data }))
-      .catch((err) => res.json({ status: "error", message: err.message }));
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
-
-router.get("/states", (req, res) => {
-  try {
-    let sqlQuery = `
-            SELECT
-                id, name
-            FROM
-                state_master
-        `;
-
-    new Promise((resolve, reject) => {
-      connection.query(sqlQuery, (err, results) => {
-        if (err) reject(err);
-        resolve(results);
-      });
-    })
-      .then((data) => res.json({ status: "success", message: data }))
-      .catch((err) => res.json({ status: "error", message: err.message }));
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
-
-router.get("/cities", (req, res) => {
-  try {
-    let sqlQuery = `
-            SELECT
-                id, sid, name
-            FROM
-                city_master
-        `;
-
-    new Promise((resolve, reject) => {
-      connection.query(sqlQuery, (err, results) => {
-        if (err) reject(err);
-        resolve(results);
-      });
-    })
-      .then((data) => res.json({ status: "success", message: data }))
-      .catch((err) => res.json({ status: "error", message: err.message }));
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", message: error.message });
-  }
-});
-
-router.get("/list", (req, res) => {
-  new Promise((resolve, reject) => {
-    connection.query(
-      `select count(1) as total from candidate`,
-      function (err, results) {
-        if (err) reject(err);
-        resolve(results);
-      }
-    );
-  })
-    .then((data) => {
-      new Promise((resolve, reject) => {
-        let pageSize = 10;
-
-        const total = Number(data[0].total);
-        const currentPage = Number(req.query.p || 1);
-        const firstPage = currentPage == 1 ? null : 1;
-        const prevPage = currentPage >= 2 ? currentPage - 1 : null;
-        const nextPage =
-          currentPage < Math.ceil(total / pageSize) ? currentPage + 1 : null;
-        const lastPage =
-          currentPage < Math.ceil(total / pageSize)
-            ? Math.ceil(total / pageSize)
-            : null;
-
-        const queryObj = new URLSearchParams(req.query);
-
-        let endQuery = `select id, fname, lname, email, phone, addr1 from candidate limit ${
-          currentPage > 1 ? (currentPage - 1) * pageSize : 0
-        }, ${pageSize}`;
-
-        connection.query(endQuery, (err, results, fields) => {
-          if (err) reject(err);
-          resolve({
-            grid: { results, fields },
-            pagination: {
-              total,
-              firstPage,
-              prevPage,
-              currentPage,
-              nextPage,
-              lastPage,
-              pathname: "list",
-            },
-          });
-        });
-      })
-        .then((data) => res.render("job-application-form-step/list", { data }))
-        .catch((err) => {
-          console.log(err);
-          res.send("Error Fetching Records");
-        });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send("Error Fetching Records");
-    });
-});
-
-router.get("/", (_, res) => {
-  res.render("job-application-form-step/index", { data: {} });
-});
-
-router.get("/candidate/:id", async (req, res) => {
-  const id = Number(req.params.id);
-
-  if (!id) {
-    res.end();
-    return;
-  }
-
-  const data = await new Promise((resolve, reject) => {
-    connection.query(
-      `select * from candidate where id = ${id}`,
-      (err, results) => {
-        if (err) reject(err);
-        resolve(results);
-      }
-    );
-  })
-    .then((basicDetails) => {
-      return new Promise((resolve, reject) => {
-        connection.query(
-          `select * from education where eid = ${id}`,
-          (err, results) => {
-            if (err) reject(err);
-            resolve({ basicDetails, masterDetails: results });
-          }
-        );
-      });
-    })
-    .then((data) => {
-      return new Promise((resolve, reject) => {
-        connection.query(
-          `select * from experience where eid = ${id}`,
-          (err, results) => {
-            if (err) reject(err);
-            resolve({ ...data, experience: results });
-          }
-        );
-      });
-    })
-    .then((data) => {
-      return new Promise((resolve, reject) => {
-        connection.query(
-          `select * from language where eid = ${id}`,
-          (err, results) => {
-            if (err) reject(err);
-            resolve({ ...data, language: results });
-          }
-        );
-      });
-    })
-    .then((data) => {
-      return new Promise((resolve, reject) => {
-        connection.query(
-          `select * from reference where eid = ${id}`,
-          (err, results) => {
-            if (err) reject(err);
-            resolve({ ...data, reference: results });
-          }
-        );
-      });
-    })
-    .then((data) => {
-      return new Promise((resolve, reject) => {
-        connection.query(
-          `select * from technologies where eid = ${id}`,
-          (err, results) => {
-            if (err) reject(err);
-            resolve({ ...data, technologies: results });
-          }
-        );
-      });
-    });
-
-  data.basicDetails = data.basicDetails[0];
-  data.masterDetails = data.masterDetails[0];
-  res.render("job-application-form-step/index", { data });
-});
-
-function checkValidation(body, validation, res) {
-  for (let arr of Object.entries(validation)) {
-    const field = arr[0];
-    const obj = arr[1];
-    if (obj.required) {
-      if (!body[field]) {
-        res.json({
-          status: "error",
-          message: `${field} is required!`,
-          field,
-        });
-        return false;
-      }
-    }
-
-    // Note pattern is optional property
-    if (obj?.pattern && body[field]) {
-      if (!new RegExp(obj.pattern, "i").test(body[field])) {
-        res.json({
-          status: "error",
-          message: `Invalid input for ${field}!`,
-          field,
-        });
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
-function generateInsertQuery(data, tablename) {
-  let sqlQuery = `insert into ${tablename} (`;
-  sqlQuery += Object.keys(data)
-    .map((k) => `\`${k}\``)
-    .join(", ");
-  sqlQuery += ") values (";
-  sqlQuery += Object.values(data)
-    .map((v) => `\'${v}\'`)
-    .join(", ");
-  sqlQuery += ");";
-  return sqlQuery;
-}
-
-function generateUpdateQuery(values, primaryKeys, tablename) {
-  let sqlQuery = `update ${tablename} set`;
-  let list = [];
-
-  Object.entries(values).forEach((arr) => {
-    let field = arr[0];
-    let value = arr[1];
-
-    if (!(field in primaryKeys)) {
-      list.push(`\`${field}\` = \'${value}\'`);
-    }
-  });
-
-  sqlQuery += list.join(",");
-  sqlQuery += " where ";
-
-  list = [];
-  primaryKeys.forEach((key) => {
-    list.push(`\`${key}\` = \'${values[key]}\'`);
-  });
-
-  sqlQuery += list.join(" AND ");
-  return sqlQuery;
-}
+router.get("/candidate/:id", getCandidateDetails);
 
 export default router;

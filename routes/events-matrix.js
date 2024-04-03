@@ -1,9 +1,8 @@
 import express from "express";
+import controller from "../controllers/events-matrix.js";
 
 const router = express.Router();
 
-router.get("/", (_, res) => {
-  res.render("events-matrix");
-});
+router.get("/", controller);
 
 export default router;

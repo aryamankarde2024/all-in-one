@@ -1,5 +1,5 @@
 import express from "express";
-import mysql from "mysql";
+import connection from "./connection.js";
 import cookieParser from "cookie-parser";
 import { md5, randomString, generateToken, authenticate } from "./helper.js";
 import r1 from "./routes/dynamic-table-generator.js";
@@ -15,14 +15,6 @@ import r10 from "./routes/job-application-form.js";
 import r11 from "./routes/job-application-form-step.js";
 
 const app = express();
-
-const connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "root",
-  database: "students",
-});
 
 app.set("view engine", "ejs");
 
@@ -319,5 +311,3 @@ app.use("/job-application-form-step", r11);
 app.listen("8000", (err) => {
   console.log("Server listening on port 8000", err);
 });
-
-export default connection;
