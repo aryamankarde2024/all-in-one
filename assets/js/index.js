@@ -1528,7 +1528,7 @@ async function handlePreferenceFormSubmit() {
         ...data,
       };
       alert("Operation Completed Successfully");
-      window.location = "/list";
+      window.location = "/job-application-form-step/list";
     } else if (obj.status == "error") {
       let field = document.getElementById(obj.field);
 

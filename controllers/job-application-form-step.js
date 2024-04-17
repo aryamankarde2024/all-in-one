@@ -365,7 +365,7 @@ export const putEducation = (req, res) => {
     if (
       checkValidation(req.body, validation.education?.[req.body.detail], res)
     ) {
-      body = Object.fromEntries(
+      const body = Object.fromEntries(
         Object.entries(req.body).filter((arr) => arr[0] != "detail")
       );
 
@@ -604,7 +604,7 @@ export const postReference = (req, res) => {
 
 export const putReference = (req, res) => {
   try {
-    if (checkValidation(req.body, validation.preference, res)) {
+    if (checkValidation(req.body, validation.reference, res)) {
       let sqlQuery = generateUpdateQuery(req.body, ["id"], "candidate");
 
       new Promise((resolve, reject) => {
